@@ -4,9 +4,11 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
-
+import org.springframework.lang.Nullable;
 public interface DBRepository extends CrudRepository<UserInformation, Integer> {
-	public List<UserInformation> findByNameAndPhoneNumber(String name, String phoneNumber);
+	@Nullable
+	public Optional<UserInformation> findByUserNameAndPhoneNumber(String userName, String phoneNumber);
 }

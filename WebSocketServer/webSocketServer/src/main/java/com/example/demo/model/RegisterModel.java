@@ -1,12 +1,12 @@
 package com.example.demo.model;
 
 public class RegisterModel {
-	private String name;
+	private String userName;
 	private String phoneNumber;
 	private String email;
 	
-	public String getName() {
-		return name;
+	public String getUserName() {
+		return userName;
 	}
 	
 	public String getPhoneNumber() {
@@ -15,5 +15,12 @@ public class RegisterModel {
 	
 	public String getEmail() {
 		return email;
+	}
+	
+	@Override
+	public String toString() {
+		return "\nName : " + userName +
+				"\nPhone Number : " + phoneNumber +
+				"\nEmail : " + email;
 	}
 }

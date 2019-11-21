@@ -4,25 +4,32 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Column;
+import javax.persistence.Table;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
+@Table(name="user_information")
 public class UserInformation {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
-	private String name;
+	@Column(name="user_name")
+	private String userName;
+	
+	@Column(name="phone_number")
 	private String phoneNumber;
+	
 	private String email;
 	
 	public static class Builder implements Buildable {
-		private Integer id;
-		private String name;
+		private String userName;
 		private String phoneNumber;
-		private String email = null;
+		private String email = "absent";
 
-		public Builder (String name, String phoneNumber) {
-			this.name = name;
+		public Builder (String userName, String phoneNumber) {
+			this.userName = userName;
 			this.phoneNumber = phoneNumber;
 		}
 		
@@ -37,21 +44,25 @@ public class UserInformation {
 		}
 	}
 	
+	public UserInformation() {
+		
+	}
+	
 	public UserInformation(Builder builder) {
-		this.name = builder.name;
+		this.userName = builder.userName;
 		this.phoneNumber = builder.phoneNumber;
 		this.email = builder.email;
 	}
 	
-	public void setName() {
-		this.name = name;
+	public void setName(String userName) {
+		this.userName = userName;
 	}
 	
-	public void setPhoneNumber() {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 	
-	public void setEmail() {
+	public void setEmail(String email) {
 		this.email = email;
 	}
 	
@@ -59,8 +70,8 @@ public class UserInformation {
 		return id;
 	}
 	
-	public String getName() {
-		return name;
+	public String getUserName() {
+		return userName;
 	}
 	
 	public String getPhoneNumber() {
