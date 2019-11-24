@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +14,17 @@ import org.springframework.stereotype.Controller;
 
 import com.example.demo.model.DBRepository;
 import com.example.demo.model.RegisterModel;
-import com.example.demo.model.UserInformation;
+import com.example.demo.model.UserInformationEntity;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@RequestMapping(value="/")
 public class MySQLController {
 	private static Logger logger = LoggerFactory.getLogger(MySQLController.class);
 	
@@ -25,16 +32,19 @@ public class MySQLController {
 	private DBRepository dbRepository;
 	
 	private ObjectMapper mapper = new ObjectMapper();
-	private RegisterModel registerModel;
+	//private RegisterModel registerModel;
 	
-	private Optional<UserInformation> queryRegister;
-	private List<UserInformation> queryList;
+	private Optional<UserInformationEntity> queryRegister;
+	private List<UserInformationEntity> queryList;
 	
-	@MessageMapping("/db-register")
-	@SendTo("/topic/greetings") // @SendTo안의 Subscriber에게 전송하기 위해 MessageBroker로 전송한다.
-	public String userRegistration(String json) {
+	@RequestMapping(value="/user-registration", method=RequestMethod.POST)
+	@ResponseBody
+	public String userRegistration(@RequestBody RegisterModel registerModel) {
+		/*
+		logger.info("this is my info = " + json);
 		try {
 			registerModel = mapper.readValue(json, RegisterModel.class);
+			
 		} catch (JsonMappingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -42,19 +52,19 @@ public class MySQLController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		queryRegister = dbRepository.findByUserNameAndPhoneNumber(registerModel.getUserName(), registerModel.getPhoneNumber());
+		*/
+		logger.info(registerModel.toString());
+		queryRegister = dbRepository.findByUserName(registerModel.getUserName());
 		if (!queryRegister.isPresent()) {
-			UserInformation userInfo = new UserInformation.Builder(registerModel.getUserName(), registerModel.getPhoneNumber())
-					.setEmail(registerModel.getEmail())
+			UserInformationEntity userInfo = new UserInformationEntity.Builder(registerModel.getUserName())
 					.build();
 			dbRepository.save(userInfo);
 			logger.info(registerModel.toString());
-			return "등록이 완료되었습니다." + registerModel.toString();
+			return "OK";
 		}
 		else {
-			logger.info("Account Already Exists....\n");
-			return "이미 존재하는 계정입니다.";
-		}		
+			logger.info("Account Already Exists....\n"); 
+			return "EXIST";
+		}
 	}
 }

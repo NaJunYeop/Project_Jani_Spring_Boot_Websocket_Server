@@ -3,7 +3,7 @@ package com.example.demo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-import com.example.demo.model.UserInformation;
+import com.example.demo.model.UserInformationEntity;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

@@ -8,7 +8,10 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.lang.Nullable;
-public interface DBRepository extends CrudRepository<UserInformation, Integer> {
+public interface DBRepository extends CrudRepository<UserInformationEntity, Integer> {
 	@Nullable
-	public Optional<UserInformation> findByUserNameAndPhoneNumber(String userName, String phoneNumber);
+	public Optional<UserInformationEntity> findByUserNameAndPhoneNumber(String userName, String phoneNumber);
+	
+	@Nullable
+	public Optional<UserInformationEntity> findByUserName(String userName);
 }

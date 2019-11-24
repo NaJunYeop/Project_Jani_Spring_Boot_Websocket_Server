@@ -13,7 +13,7 @@ import org.springframework.stereotype.Controller;
 import com.example.demo.model.DBRepository;
 import com.example.demo.model.MessageModel;
 import com.example.demo.model.RegisterModel;
-import com.example.demo.model.UserInformation;
+import com.example.demo.model.UserInformationEntity;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

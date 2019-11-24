@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 @Table(name="user_information")
-public class UserInformation {
+public class UserInformationEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
@@ -26,11 +26,15 @@ public class UserInformation {
 	public static class Builder implements Buildable {
 		private String userName;
 		private String phoneNumber;
-		private String email = "absent";
+		private String email;
 
-		public Builder (String userName, String phoneNumber) {
+		public Builder (String userName) {
 			this.userName = userName;
+		}
+		
+		public Builder setPhoneNumber(String phoneNumber) {
 			this.phoneNumber = phoneNumber;
+			return this;
 		}
 		
 		public Builder setEmail(String email) {
@@ -39,16 +43,16 @@ public class UserInformation {
 		}
 
 		@Override
-		public UserInformation build() {
-			return new UserInformation(this);
+		public UserInformationEntity build() {
+			return new UserInformationEntity(this);
 		}
 	}
 	
-	public UserInformation() {
+	public UserInformationEntity() {
 		
 	}
 	
-	public UserInformation(Builder builder) {
+	public UserInformationEntity(Builder builder) {
 		this.userName = builder.userName;
 		this.phoneNumber = builder.phoneNumber;
 		this.email = builder.email;

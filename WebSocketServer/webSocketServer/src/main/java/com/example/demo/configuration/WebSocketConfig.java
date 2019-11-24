@@ -25,5 +25,4 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         // HandShake할 EndPoint를 지정한다.
     	registry.addEndpoint("/janiwss").withSockJS();
     }
-
 }
