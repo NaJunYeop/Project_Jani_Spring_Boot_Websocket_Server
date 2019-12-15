@@ -25,7 +25,7 @@ public class WebSocketController {
 	private ObjectMapper mapper = new ObjectMapper();
 	private MessageModel messageModel;
 
-	@MessageMapping("/end")
+	@MessageMapping("/end")// ws://IP:PORT/app/end
 	@SendTo("/topic/greetings") // @SendTo안의 Subscriber에게 전송하기 위해 MessageBroker로 전송한다.
 	public String sendMessage(String json) {
 		try {

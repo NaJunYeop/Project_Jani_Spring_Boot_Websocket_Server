@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
@@ -39,7 +41,7 @@ public class MySQLController {
 	
 	@RequestMapping(value="/user-registration", method=RequestMethod.POST)
 	@ResponseBody
-	public String userRegistration(@RequestBody RegisterModel registerModel) {
+	public Map<String, String> userRegistration(@RequestBody RegisterModel registerModel) {
 		/*
 		logger.info("this is my info = " + json);
 		try {
@@ -53,18 +55,24 @@ public class MySQLController {
 			e.printStackTrace();
 		}
 		*/
-		logger.info(registerModel.toString());
+		Map<String, String> ret = new HashMap<>();
+		
 		queryRegister = dbRepository.findByUserName(registerModel.getUserName());
+		
 		if (!queryRegister.isPresent()) {
 			UserInformationEntity userInfo = new UserInformationEntity.Builder(registerModel.getUserName())
 					.build();
 			dbRepository.save(userInfo);
 			logger.info(registerModel.toString());
-			return "OK";
+			ret.put("userName", registerModel.getUserName());
+			ret.put("phoneNumber", registerModel.getPhoneNumber());
+			ret.put("email", registerModel.getEmail());
 		}
 		else {
-			logger.info("Account Already Exists....\n"); 
-			return "EXIST";
+			logger.info("Account Already Exists....\n");
+			ret.put("userName", "EXT");
 		}
+		
+		return ret;
 	}
 }

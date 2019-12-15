@@ -18,6 +18,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     	config.setApplicationDestinationPrefixes("/app", "/db-register", "/db-select", "/db-update", "/db-delete");
     	// MessageBroker·Î Àü¼Û
         config.enableSimpleBroker("/topic", "/queue");
+        //config.enableSimpleBroker("test");
     }
 
     @Override
