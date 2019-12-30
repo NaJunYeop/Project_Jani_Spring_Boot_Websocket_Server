@@ -42,19 +42,6 @@ public class MySQLController {
 	@RequestMapping(value="/user-registration", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, String> userRegistration(@RequestBody RegisterModel registerModel) {
-		/*
-		logger.info("this is my info = " + json);
-		try {
-			registerModel = mapper.readValue(json, RegisterModel.class);
-			
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
 		Map<String, String> ret = new HashMap<>();
 		
 		queryRegister = dbRepository.findByUserName(registerModel.getUserName());

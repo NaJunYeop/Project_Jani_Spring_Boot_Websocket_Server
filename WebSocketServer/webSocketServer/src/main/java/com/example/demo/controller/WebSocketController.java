@@ -35,43 +35,14 @@ public class WebSocketController {
 	private SimpMessagingTemplate template;
 	
 	@MessageMapping("/queue/{receiverName}")// ws://IP:PORT/app/end
-	//@SendTo("{queueChatRoomName}") // @SendTo안의 Subscriber에게 전송하기 위해 MessageBroker로 전송한다.
 	public void sendQueueMessage(@DestinationVariable("receiverName") String receiverName, @RequestBody MessageModel messageModel) {
-		Map<String, String> ret = new HashMap<>();
-		
-		/*
-		 * ret.put("senderSideDate", messageModel.getSenderSideDate());
-		 * ret.put("senderName", messageModel.getSenderName()); ret.put("chatRoomName",
-		 * messageModel.getChatRoomName()); ret.put("contents",
-		 * messageModel.getContents());
-		 */
 		logger.info("To : " + receiverName + " : " + messageModel.getContents());
 		
 		template.convertAndSend("/queue/"+ receiverName, messageModel);
-		//return ret;
 	}
-	/*
-	@MessageMapping("{topicChatRoomName}")// ws://IP:PORT/app/end
-	//@SendTo("{topicChatRoomName}") // @SendTo안의 Subscriber에게 전송하기 위해 MessageBroker로 전송한다.
-	public void sendTopicMessage(@DestinationVariable String topicChatRoomName, @RequestBody MessageModel messageModel) {
-		Map<String, String> ret = new HashMap<>();
-		
-		ret.put("senderSideDate", messageModel.getSenderSideDate());
-		ret.put("senderName", messageModel.getSenderName());
-		ret.put("chatRoomName", messageModel.getChatRoomName());
-		ret.put("contents", messageModel.getContents());
-		
-		logger.info(messageModel.getContents());
-		
-		template.convertAndSend(topicChatRoomName, ret);
-		//return ret;
-	}
-	*/
 	
 	@MessageMapping("/req/{receiverName}")
 	public void sendRequestMessage(@DestinationVariable("receiverName") String receiverName , @RequestBody RequestModel requestModel) {
-		Map<String, String> ret = new HashMap<>();
-		
 		logger.info("request " + requestModel.getSenderName() + " to " + receiverName);
 	
 		template.convertAndSend("/req/" + receiverName, requestModel);
