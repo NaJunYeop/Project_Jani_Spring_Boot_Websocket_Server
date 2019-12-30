@@ -72,7 +72,28 @@ public class MySQLController {
 			logger.info("Account Already Exists....\n");
 			ret.put("userName", "EXT");
 		}
+		return ret;
+	}
+	
+	@RequestMapping(value="/find-user", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, String> findUser(@RequestBody RegisterModel registerModel) {
+		Map<String, String> ret = new HashMap<>();
 		
+		queryRegister = dbRepository.findByUserName(registerModel.getUserName());
+		
+		if (queryRegister.isPresent()) {
+			UserInformationEntity userInfo = new UserInformationEntity.Builder(registerModel.getUserName())
+					.build();
+			logger.info(registerModel.toString());
+			ret.put("userName", registerModel.getUserName());
+			ret.put("phoneNumber", registerModel.getPhoneNumber());
+			ret.put("email", registerModel.getEmail());
+		}
+		else {
+			logger.info("Account Already Exists....\n");
+			ret.put("userName", "NOTEXIST");
+		}
 		return ret;
 	}
 }

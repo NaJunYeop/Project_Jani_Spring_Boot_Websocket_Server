@@ -15,10 +15,9 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
     	// Destination Prefix가 "/app"이면 @MessageMapping에서 처리 된 후 MessageBroker로 전송 
-    	config.setApplicationDestinationPrefixes("/app", "/db-register", "/db-select", "/db-update", "/db-delete");
+    	config.setApplicationDestinationPrefixes("/app");
     	// MessageBroker로 전송
-        config.enableSimpleBroker("/topic", "/queue");
-        //config.enableSimpleBroker("test");
+        config.enableSimpleBroker("/topic", "/queue", "/req");
     }
 
     @Override
