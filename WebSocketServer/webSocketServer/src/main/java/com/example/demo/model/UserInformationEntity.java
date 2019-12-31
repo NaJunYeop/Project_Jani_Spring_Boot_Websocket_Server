@@ -11,8 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Entity
 @Table(name="user_information")
 public class UserInformationEntity {
+	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private Integer id;
 	
 	@Column(name="user_name")

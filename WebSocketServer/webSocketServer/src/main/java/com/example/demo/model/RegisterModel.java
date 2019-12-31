@@ -9,6 +9,10 @@ public class RegisterModel {
 		return userName;
 	}
 	
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}

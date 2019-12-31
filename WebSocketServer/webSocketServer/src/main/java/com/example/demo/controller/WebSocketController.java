@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 
 import com.example.demo.model.ChatRoomModel;
-import com.example.demo.model.DBRepository;
+import com.example.demo.model.UserInformationRepository;
 import com.example.demo.model.MessageModel;
 import com.example.demo.model.RegisterModel;
 import com.example.demo.model.RequestModel;
