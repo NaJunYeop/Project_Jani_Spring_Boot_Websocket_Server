@@ -7,14 +7,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 @Entity
-@Table(name="serverMessageModel")
+@Table(name="server_message_model")
 public class ServerMessageModel {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private Integer id;
 	
+	@Column(name="client_id")
+	private Integer clientId;
+
 	@Column(name="sender_side_date")
 	private String senderSideDate;
 	
@@ -26,13 +31,24 @@ public class ServerMessageModel {
 	
     private String contents;
 	
-	private MessageModel messageModel;
+    public ServerMessageModel() {
+    	
+    }
+	/*
+	 * public ServerMessageModel(MessageModel messageModel) { this.clientId =
+	 * messageModel.getId(); this.senderChatChannel =
+	 * messageModel.getSenderChatChannel(); this.senderName =
+	 * messageModel.getSenderName(); this.senderSideDate =
+	 * messageModel.getSenderSideDate(); this.contents = messageModel.getContents();
+	 * }
+	 */
 	
-	public ServerMessageModel(MessageModel messageModel) {
-		this.senderChatChannel = messageModel.getSenderChatChannel();
-		this.senderName = messageModel.getSenderName();
-		this.senderSideDate = messageModel.getSenderSideDate();
-		this.contents = messageModel.getContents();	
+	public Integer getClientId() {
+		return clientId;
+	}
+
+	public void setClientId(Integer clientId) {
+		this.clientId = clientId;
 	}
 	
 	public String getSenderSideDate() {
@@ -55,7 +71,15 @@ public class ServerMessageModel {
         return senderChatChannel;
     }
 
-    public void setSenderChatChannel(String senderChatChannel) {
+    public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public void setSenderChatChannel(String senderChatChannel) {
         this.senderChatChannel = senderChatChannel;
     }
 
@@ -67,4 +91,5 @@ public class ServerMessageModel {
         this.contents = contents;
     }
 
+    
 }

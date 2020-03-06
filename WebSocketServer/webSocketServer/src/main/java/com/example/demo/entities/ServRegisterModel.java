@@ -27,6 +27,10 @@ public class ServRegisterModel {
 	@Column(name="reg_password")
 	private String regPasswrod;
 	
+	public ServRegisterModel() {
+		
+	}
+	
 	public ServRegisterModel(RegisterModel registerModel) {
 		this.regId = registerModel.getRegId();
 		this.regUserName = registerModel.getRegUserName();

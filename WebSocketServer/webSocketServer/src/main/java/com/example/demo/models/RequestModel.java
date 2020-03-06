@@ -1,49 +1,61 @@
 package com.example.demo.models;
+import java.util.ArrayList;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name="request_model")
 public class RequestModel {
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY) 
-	private Integer id;
-	
-	@Column(name="sender_name")
-	private String senderName;
-	
-	@Column(name="receiver_name")
-	private String receiverName;
 
-	private String status;
-	
-	public String getSenderName() {
-        return senderName;
-    }
-
-    public void setSenderName(String senderName) {
-        this.senderName = senderName;
-    }
-
-    public String getReceiverName() {
-        return receiverName;
-    }
-
-    public void setReceiverName(String receiverName) {
-        this.receiverName = receiverName;
-    }
+    private int reqId;
+    private int reqType;
+    private String chatChannel;
+    private String reqSenderName;
+    private String reqReceiverName;
     
-    public String getStatus() {
-        return status;
+    public RequestModel() {
+    	
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public RequestModel(int reqType, String reqSenderName, String reqReceiverName) {
+        this.reqType = reqType;
+        this.reqSenderName = reqSenderName;
+        this.reqReceiverName = reqReceiverName;
+    }
+
+    public int getReqId() {
+        return reqId;
+    }
+
+    public void setReqId(int reqId) {
+        this.reqId = reqId;
+    }
+
+    public int getReqType() {
+        return reqType;
+    }
+
+    public void setReqType(int reqType) {
+        this.reqType = reqType;
+    }
+
+    public String getChatChannel() {
+        return chatChannel;
+    }
+
+    public void setChatChannel(String chatChannel) {
+        this.chatChannel = chatChannel;
+    }
+
+    public String getReqSenderName() {
+        return reqSenderName;
+    }
+
+    public void setReqSenderName(String reqSenderName) {
+        this.reqSenderName = reqSenderName;
+    }
+
+    public String getReqReceiverName() {
+        return reqReceiverName;
+    }
+
+    public void setReqReceiverName(String reqReceiverName) {
+        this.reqReceiverName = reqReceiverName;
     }
 }

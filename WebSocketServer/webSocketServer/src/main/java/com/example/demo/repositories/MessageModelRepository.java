@@ -7,10 +7,13 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.lang.Nullable;
 
 import com.example.demo.models.MessageModel;
+import com.example.demo.models.ServerMessageModel;
 
-public interface MessageModelRepository extends CrudRepository<MessageModel, Integer>{
+public interface MessageModelRepository extends CrudRepository<ServerMessageModel, Integer>{
 	
-	@Nullable
-	public Optional<List<MessageModel>> findBySenderChatChannel(String userName);
+	/*
+	 * @Nullable public Optional<List<MessageModel>> findBySenderChatChannel(String
+	 * userName);
+	 */
 
 }

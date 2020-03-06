@@ -1,63 +1,91 @@
 package com.example.demo.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name="messageModel")
 public class MessageModel {
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY) 
-	private Integer id;
-	
-	@Column(name="sender_side_date")
-	private String senderSideDate;
-	
-	@Column(name="sender_name")
-    private String senderName;
-	
-	@Column(name="sender_chat_channel")
-    private String senderChatChannel;
-	
-    private String contents;
 
+    private int msgId;
+    private int msgIsRead;
+    private int msgCount;
+    private String msgOwner;
+    private String chatChannel;
+    private String msgSenderName;
+    private String msgSenderSideDate;
+    private String msgContent;
+    
     public MessageModel() {
-
+    	
     }
 
-    public String getSenderSideDate() {
-        return senderSideDate;
+    public MessageModel(int msgIsRead, int msgCount, String msgOwner, String chatChannel, String msgSenderName, String msgSenderSideDate, String msgContent) {
+        this.msgIsRead = msgIsRead;
+        this.msgCount = msgCount;
+        this.msgOwner = msgOwner;
+        this.chatChannel = chatChannel;
+        this.msgSenderName = msgSenderName;
+        this.msgSenderSideDate = msgSenderSideDate;
+        this.msgContent = msgContent;
     }
 
-    public void setSenderSideDate(String senderSideDate) {
-        this.senderSideDate = senderSideDate;
+    public int getMsgId() {
+        return msgId;
     }
 
-    public String getSenderName() {
-        return senderName;
+    public void setMsgId(int msgId) {
+        this.msgId = msgId;
     }
 
-    public void setSenderName(String senderName) {
-        this.senderName = senderName;
+    public int getMsgIsRead() {
+        return msgIsRead;
     }
 
-    public String getSenderChatChannel() {
-        return senderChatChannel;
+    public void setMsgIsRead(int msgIsRead) {
+        this.msgIsRead = msgIsRead;
     }
 
-    public void setSenderChatChannel(String senderChatChannel) {
-        this.senderChatChannel = senderChatChannel;
+    public int getMsgCount() {
+        return msgCount;
     }
 
-    public String getContents() {
-        return contents;
+    public void setMsgCount(int msgCount) {
+        this.msgCount = msgCount;
     }
 
-    public void setContents(String contents) {
-        this.contents = contents;
+    public String getMsgOwner() {
+        return msgOwner;
+    }
+
+    public void setMsgOwner(String msgOwner) {
+        this.msgOwner = msgOwner;
+    }
+
+    public String getChatChannel() {
+        return chatChannel;
+    }
+
+    public void setChatChannel(String chatChannel) {
+        this.chatChannel = chatChannel;
+    }
+
+    public String getMsgSenderName() {
+        return msgSenderName;
+    }
+
+    public void setMsgSenderName(String msgSenderName) {
+        this.msgSenderName = msgSenderName;
+    }
+
+    public String getMsgSenderSideDate() {
+        return msgSenderSideDate;
+    }
+
+    public void setMsgSenderSideDate(String msgSenderSideDate) {
+        this.msgSenderSideDate = msgSenderSideDate;
+    }
+
+    public String getMsgContent() {
+        return msgContent;
+    }
+
+    public void setMsgContent(String msgContent) {
+        this.msgContent = msgContent;
     }
 }

@@ -5,6 +5,10 @@ public class RegisterModel {
     private int regId;
     private String regUserName;
     private String regPassword;
+    
+    public RegisterModel() {
+    	
+    }
 
     public RegisterModel(String regUserName, String regPassword) {
         this.regUserName = regUserName;
