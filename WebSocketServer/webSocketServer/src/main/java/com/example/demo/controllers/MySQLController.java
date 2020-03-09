@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.entities.ServRegisterModel;
+import com.example.demo.entities.ServTopicNumberModel;
 import com.example.demo.models.ChatRoomModel;
 import com.example.demo.models.FriendModel;
 import com.example.demo.models.MessageModel;
@@ -25,6 +26,7 @@ import com.example.demo.repositories.ChatRoomModelRepository;
 import com.example.demo.repositories.FriendModelRepository;
 import com.example.demo.repositories.MessageModelRepository;
 import com.example.demo.repositories.ServRegisterModelRepository;
+import com.example.demo.repositories.ServTopicNumberRepository;
 import com.example.demo.repositories.UserInformationRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -37,10 +39,18 @@ public class MySQLController {
 	private ServRegisterModelRepository servRegisterModelRepository;
 	
 	
+	///////////////topic_number 처리 YJ
+	@Autowired
+	private ServTopicNumberRepository ServTopicNumberRepository;
+	private Optional<ServTopicNumberModel> queryServTopicNumberModel;
+	///////////////topic_number 처리 YJ
+	
 	private ObjectMapper mapper = new ObjectMapper();
 	
 	private Optional<ServRegisterModel> queryServRegisterModel;
 	private Optional<List<ServRegisterModel>> queryServRegisterModelList;
+	
+
 	
 	@RequestMapping(value="/user-registration", method=RequestMethod.POST)
 	@ResponseBody
@@ -98,6 +108,38 @@ public class MySQLController {
 		
 		return new UserInformationModel(queryServRegisterModel.get());
 	}
+	
+	
+	
+	///////////////topic_number 처리 YJ
+	@RequestMapping(value="/get-topic-channel", method=RequestMethod.POST)
+	public PlainTextModel getTopicNumber() {
+		
+		PlainTextModel ret = new PlainTextModel();
+		queryServTopicNumberModel = ServTopicNumberRepository.findById(1);
+		
+		//topic_nubmer없으면 .save
+		if(!queryServTopicNumberModel.isPresent()) {
+			ServTopicNumberRepository.save(new ServTopicNumberModel(1));
+			ret.setText("0");
+			logger.info("/get-topic-channel : clientTopicNumber = " + ret.getText()+ "/get-topic-channel : serverTopicNumber = 1");
+			return ret;
+		}
+		
+		//있으면 +1
+		
+		int clientTopicNumber = queryServTopicNumberModel.get().getTopicNumber();
+		int serverTopicNumber = clientTopicNumber + 1;
+		ServTopicNumberRepository.deleteAll();
+		ServTopicNumberRepository.save(new ServTopicNumberModel(serverTopicNumber));
+		
+		//log찍어 보기
+		logger.info("/get-topic-channel : clientTopicNumber = " + clientTopicNumber + "/get-topic-number : serverTopicNumber = " + serverTopicNumber);
+		ret.setText(Integer.toString(clientTopicNumber));
+		return ret;
+	}
+	///////////////topic_number 처리 YJ
+	
 	
 	/*
 	 * @RequestMapping(value="/user-registration", method=RequestMethod.POST)
