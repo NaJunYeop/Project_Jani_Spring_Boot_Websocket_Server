@@ -41,7 +41,8 @@ public class MySQLController {
 	
 	///////////////topic_number 처리 YJ
 	@Autowired
-	private ServTopicNumberRepository ServTopicNumberRepository;
+	private ServTopicNumberRepository servTopicNumberRepository;
+	
 	private Optional<ServTopicNumberModel> queryServTopicNumberModel;
 	///////////////topic_number 처리 YJ
 	
@@ -113,14 +114,15 @@ public class MySQLController {
 	
 	///////////////topic_number 처리 YJ
 	@RequestMapping(value="/get-topic-channel", method=RequestMethod.POST)
+	@ResponseBody
 	public PlainTextModel getTopicNumber() {
 		
 		PlainTextModel ret = new PlainTextModel();
-		queryServTopicNumberModel = ServTopicNumberRepository.findById(1);
+		queryServTopicNumberModel = servTopicNumberRepository.findById(1);
 		
 		//topic_nubmer없으면 .save
 		if(!queryServTopicNumberModel.isPresent()) {
-			ServTopicNumberRepository.save(new ServTopicNumberModel(1));
+			servTopicNumberRepository.save(new ServTopicNumberModel(1));
 			ret.setText("0");
 			logger.info("/get-topic-channel : clientTopicNumber = " + ret.getText()+ "/get-topic-channel : serverTopicNumber = 1");
 			return ret;
@@ -130,8 +132,12 @@ public class MySQLController {
 		
 		int clientTopicNumber = queryServTopicNumberModel.get().getTopicNumber();
 		int serverTopicNumber = clientTopicNumber + 1;
-		ServTopicNumberRepository.deleteAll();
-		ServTopicNumberRepository.save(new ServTopicNumberModel(serverTopicNumber));
+		/*
+		 * ServTopicNumberRepository.deleteAll(); ServTopicNumberRepository.save(new
+		 * ServTopicNumberModel(serverTopicNumber));
+		 */
+		
+		servTopicNumberRepository.updateTopicNumber(serverTopicNumber);
 		
 		//log찍어 보기
 		logger.info("/get-topic-channel : clientTopicNumber = " + clientTopicNumber + "/get-topic-number : serverTopicNumber = " + serverTopicNumber);

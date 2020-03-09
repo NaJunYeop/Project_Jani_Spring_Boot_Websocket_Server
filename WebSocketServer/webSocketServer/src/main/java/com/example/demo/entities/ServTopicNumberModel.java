@@ -16,8 +16,16 @@ public class ServTopicNumberModel {
 	@Column(name="id")
 	private Integer id;
 	
-	@Column(name="topic_Number")
+	@Column(name="topic_number")
 	private Integer topicNumber;
+	
+	public ServTopicNumberModel() {
+		
+	}
+	
+	public ServTopicNumberModel(Integer topicNumber) {
+		this.topicNumber = topicNumber;
+	}
 
 	public Integer getId() {
 		return id;
@@ -32,10 +40,6 @@ public class ServTopicNumberModel {
 	}
 
 	public void setTopicNumber(Integer topicNumber) {
-		this.topicNumber = topicNumber;
-	}
-
-	public ServTopicNumberModel(Integer topicNumber) {
 		this.topicNumber = topicNumber;
 	}
 
